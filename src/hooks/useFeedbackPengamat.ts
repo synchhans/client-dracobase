@@ -37,10 +37,10 @@ const useFeedbackPengamat = (): UseFeedbackPengamatResult => {
     try {
       const response = await fetch(`${API_URL}/${userId}`, {
         method: "GET",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
       });
 
       if (response.ok) {
@@ -62,10 +62,10 @@ const useFeedbackPengamat = (): UseFeedbackPengamatResult => {
     try {
       const response = await fetch(`${API_URL}/count/${userId}`, {
         method: "GET",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
       });
 
       if (response.ok) {
@@ -130,10 +130,10 @@ const useFeedbackPengamat = (): UseFeedbackPengamatResult => {
     try {
       const response = await fetch(API_URL, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify({
           feedback: feedbackText,
         }),

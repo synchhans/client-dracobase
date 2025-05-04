@@ -33,9 +33,9 @@ export default function HeaderDashboard({
           <Image
             src="/logo.svg"
             alt="Logo"
-            width={30}
-            height={30}
-            className="w-full h-auto"
+            width={10}
+            height={10}
+            className="w-8 h-auto"
           />
         </a>
 

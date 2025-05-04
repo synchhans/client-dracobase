@@ -11,6 +11,9 @@ export const apiGetProgress = async (
     const response = await fetch(`${API_URL}/${userId}/${workspaceId}`, {
       method: "GET",
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     if (!response.ok) {

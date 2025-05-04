@@ -8,6 +8,9 @@ export const apiGetMaintenanceStatus = async (): Promise<MaintenanceStatus> => {
     const response = await fetch(`${API_URL}?t=${timestamp}`, {
       method: "GET",
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     if (!response.ok) {

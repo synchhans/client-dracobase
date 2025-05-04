@@ -5,7 +5,11 @@ const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/auth`;
 export const fetchUser = async (): Promise<User | null> => {
   try {
     const response = await fetch(`${API_URL}/me`, {
+      method: "GET",
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     if (!response.ok) {
@@ -44,7 +48,11 @@ export const updateUser = async (userData: User): Promise<void> => {
 export const verifyUser = async (): Promise<User | null> => {
   try {
     const response = await fetch(`${API_URL}/dashboard`, {
+      method: "GET",
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     if (response.status === 401 || response.status === 403) {
@@ -73,6 +81,9 @@ export const logout = async (): Promise<void> => {
     const response = await fetch(`${API_URL}/logout`, {
       method: "POST",
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     if (!response.ok) {

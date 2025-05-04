@@ -40,6 +40,9 @@ export const apiGetWorkspace = async (id: string): Promise<Workspace> => {
     const response = await fetch(`${API_URL}/${id}`, {
       method: "GET",
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     if (!response.ok) {

@@ -5,6 +5,7 @@ const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/account`;
 export const apiGetAccounts = async (): Promise<User[] | null> => {
   try {
     const response = await fetch(API_URL, {
+      method: "GET",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",

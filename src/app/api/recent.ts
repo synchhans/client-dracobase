@@ -7,6 +7,9 @@ export const apiGetRecents = async (): Promise<Recent[]> => {
     const response = await fetch(API_URL, {
       method: "GET",
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     if (!response.ok) {
@@ -39,6 +42,9 @@ export const apiDeleteRecent = async (recentId: string): Promise<void> => {
     const response = await fetch(`${API_URL}/${recentId}`, {
       method: "DELETE",
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     if (!response.ok) {

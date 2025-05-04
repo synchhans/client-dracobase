@@ -82,6 +82,9 @@ export const apiGetLanguages = async (): Promise<Language[]> => {
     const response = await fetch(API_URL, {
       method: "GET",
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     if (!response.ok) {
