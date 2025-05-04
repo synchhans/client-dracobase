@@ -1,0 +1,43 @@
+{
+  "name": "dracobase",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@monaco-editor/react": "^4.7.0",
+    "emmet-monaco-es": "^5.5.0",
+    "framer-motion": "^12.4.7",
+    "html2canvas": "^1.4.1",
+    "intro.js": "^7.2.0",
+    "monaco-editor": "^0.52.2",
+    "next": "15.2.0",
+    "prismjs": "^1.30.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-markdown": "^10.1.0",
+    "react-syntax-highlighter": "^15.6.1",
+    "react-toastify": "^11.0.5",
+    "remark-gfm": "^4.0.1",
+    "swr": "^2.3.3"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "eslint": "^9",
+    "eslint-config-next": "15.2.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

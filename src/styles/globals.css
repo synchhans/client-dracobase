@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #f9fafb;
+}
+
+.marquee-content {
+  display: inline-flex;
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.logo {
+  height: 48px;
+  margin: 0 24px;
+}
+
+@media (min-width: 1024px) {
+  .logo {
+    height: 56px;
+    margin: 0 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .logo {
+    height: 64px;
+    margin: 0 40px;
+  }
+}
+
+.features-bg {
+  position: relative;
+  background-image: url("/images/bg-features.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.features-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.65);
+  z-index: 1;
+}
+
+.features-bg > div {
+  position: relative;
+  z-index: 2;
+}
