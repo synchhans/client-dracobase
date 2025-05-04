@@ -1,6 +1,7 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
+import Image from "next/image";
 
 interface FeedbackFormProps {
   onClose: () => void;
@@ -49,7 +50,14 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({
               ) : (
                 image && (
                   <div className="mt-2">
-                    <img src={image} alt="Screenshot" className="max-w-full" />
+                    <Image
+                      src={image}
+                      alt="Screenshot"
+                      className="max-w-full"
+                      width={500}
+                      height={500}
+                      style={{ width: "auto", height: "auto" }}
+                    />
                   </div>
                 )
               )}

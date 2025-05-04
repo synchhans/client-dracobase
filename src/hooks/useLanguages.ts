@@ -9,8 +9,10 @@ export default function useLanguages() {
     try {
       const data = await apiGetLanguages();
       setLanguages(data);
-    } catch (err: any) {
-      throw new Error(err.message || "Gagal mengambil bahasa.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        throw new Error(err.message || "Gagal mengambil bahasa.");
+      }
     }
   };
 
@@ -19,8 +21,10 @@ export default function useLanguages() {
       await apiDeleteLanguage(languageName);
 
       setLanguages((prev) => prev.filter((lang) => lang.name !== languageName));
-    } catch (err: any) {
-      throw new Error(err.message || "Gagal menghapus bahasa.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        throw new Error(err.message || "Gagal menghapus bahasa.");
+      }
     }
   };
 

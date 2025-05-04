@@ -19,7 +19,7 @@ const withPengamatAuth = (
   tutorialKey?: string,
   tutorialSteps?: TutorialStep[]
 ) => {
-  return () => {
+  const PengamatAuthComponent = () => {
     const router = useRouter();
     const { user, isLoading, isAuthorized, handleLogout, error } = useAuth();
 
@@ -74,7 +74,7 @@ const withPengamatAuth = (
       return () => {
         introJs().exit(true);
       };
-    }, [tutorialSteps, tutorialKey]);
+    }, []);
 
     if (isLoading || !isAuthorized || user?.level !== "pengamat") {
       return <LoadingSpinner />;
@@ -117,6 +117,12 @@ const withPengamatAuth = (
       </div>
     );
   };
+
+  PengamatAuthComponent.displayName = `PengamatAuthComponent(${Object.keys(
+    contentMap
+  ).join(", ")})`;
+
+  return PengamatAuthComponent;
 };
 
 export default withPengamatAuth;

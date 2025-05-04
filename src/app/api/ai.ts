@@ -1,5 +1,28 @@
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/ai`;
 
+type AiResponse = {
+  _id: string;
+  userId: string;
+  workspaceId: string;
+  materialId: string;
+  contentBlockId: string;
+  query: string;
+  response: string;
+  feedbackType: "debugging" | "feedback";
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+type GetAiResponse = {
+  success: string;
+  data: AiResponse[];
+};
+
+type SendAiResponse = {
+  success: string;
+  data: AiResponse;
+};
+
 export const sendQueryToBackend = async ({
   query,
   workspaceId,
@@ -12,7 +35,7 @@ export const sendQueryToBackend = async ({
   materialId: string;
   contentBlockId: string;
   type: string;
-}): Promise<any> => {
+}): Promise<SendAiResponse> => {
   try {
     const response = await fetch(API_URL, {
       method: "POST",
@@ -41,8 +64,16 @@ export const sendQueryToBackend = async ({
     } else {
       throw new Error("Respons bukan JSON valid.");
     }
-  } catch (err: any) {
-    throw new Error(err.message || "Terjadi kesalahan saat mengambil data AI.");
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(
+        err.message || "Terjadi kesalahan saat mengambil data AI."
+      );
+    } else {
+      throw new Error(
+        "Terjadi kesalahan tidak terduga saat mengambil data AI."
+      );
+    }
   }
 };
 
@@ -56,7 +87,7 @@ export const getDataAi = async ({
   materialId: string;
   contentBlockId: string;
   type: string;
-}): Promise<any> => {
+}): Promise<GetAiResponse> => {
   try {
     const response = await fetch(
       `${API_URL}?workspaceId=${workspaceId}&materialId=${materialId}&contentBlockId=${contentBlockId}&type=${type}`,
@@ -81,7 +112,15 @@ export const getDataAi = async ({
     } else {
       throw new Error("Respons bukan JSON valid.");
     }
-  } catch (err: any) {
-    throw new Error(err.message || "Terjadi kesalahan saat mengambil data AI.");
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(
+        err.message || "Terjadi kesalahan saat mengambil data AI."
+      );
+    } else {
+      throw new Error(
+        "Terjadi kesalahan tidak terduga saat mengambil data AI."
+      );
+    }
   }
 };

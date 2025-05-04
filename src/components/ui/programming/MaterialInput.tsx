@@ -23,6 +23,7 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  DragEndEvent,
 } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -67,7 +68,7 @@ export default function MaterialInput({
   ) => {
     const newBlock: ContentBlock = {
       type,
-      content: Array.isArray(content) ? content : content.toString(),
+      content: Array.isArray(content) ? content : [],
       order: newMaterial.contentBlocks.length + 1,
     };
     setNewMaterial((prev) => ({
@@ -77,7 +78,7 @@ export default function MaterialInput({
     setIsModalOpen(false);
   };
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (over && active.id !== over.id) {
       setNewMaterial((prev) => {
@@ -171,7 +172,7 @@ export default function MaterialInput({
     }
 
     const updatedMaterials = [...materials, newMaterial];
-    setFormData((prev: any) => ({ ...prev, materials: updatedMaterials }));
+    setFormData((prev) => ({ ...prev, materials: updatedMaterials }));
     setNewMaterial({ title: "", contentBlocks: [] });
 
     validateMaterials(updatedMaterials);
@@ -204,7 +205,7 @@ export default function MaterialInput({
 
     const updatedMaterials = [...materials];
     updatedMaterials[editingIndex!] = newMaterial;
-    setFormData((prev: any) => ({ ...prev, materials: updatedMaterials }));
+    setFormData((prev) => ({ ...prev, materials: updatedMaterials }));
 
     setNewMaterial({ title: "", contentBlocks: [] });
 
@@ -214,7 +215,7 @@ export default function MaterialInput({
 
   const removeMaterial = (index: number) => {
     const updatedMaterials = materials.filter((_, i) => i !== index);
-    setFormData((prev: any) => ({ ...prev, materials: updatedMaterials }));
+    setFormData((prev) => ({ ...prev, materials: updatedMaterials }));
 
     validateMaterials(updatedMaterials);
   };

@@ -5,6 +5,13 @@ import { User } from "@/types/user.types";
 import useFeedbackPengamat from "@/hooks/useFeedbackPengamat";
 import FeedbackModal from "@/app/(pengamat)/pengamat/ui/FeedbackModal";
 
+type FeedbackPengamat = {
+  _id: string;
+  userId: string;
+  feedback: string;
+  createdAt: Date;
+};
+
 export default function AccountItem({
   user,
   activeDropdown,
@@ -21,16 +28,19 @@ export default function AccountItem({
   actionRef: RefObject<HTMLDivElement | null>;
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [feedbacks, setFeedbacks] = useState<any[]>([]);
+  const [feedbacks, setFeedbacks] = useState<FeedbackPengamat[]>([]);
   const [feedbackCount, setFeedbackCount] = useState<number>(0);
   const { fetchFeedbackByUserId, fetchFeedbackCountByUserId } =
     useFeedbackPengamat();
 
   useEffect(() => {
     if (user.level === "pengamat") {
-      fetchFeedbackCountByUserId(user._id).then((count) => {
-        setFeedbackCount(count);
-      });
+      fetchFeedbackCountByUserId(user._id)
+        .then((count) => setFeedbackCount(count))
+        .catch((error) => {
+          console.error("Error fetching feedback count:", error);
+          setFeedbackCount(0);
+        });
     }
   }, [user._id, user.level, fetchFeedbackCountByUserId]);
 

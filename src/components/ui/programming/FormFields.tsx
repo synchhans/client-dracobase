@@ -11,7 +11,7 @@ export default function FormFields({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev: any) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     validateField(name, value);
   };
 
@@ -42,7 +42,7 @@ export default function FormFields({
       ? formData.categories.filter((cat: string) => cat !== category)
       : [...formData.categories, category];
 
-    setFormData((prev: any) => ({ ...prev, categories: updatedCategories }));
+    setFormData((prev) => ({ ...prev, categories: updatedCategories }));
     validateCategories(updatedCategories);
   };
 
@@ -129,7 +129,6 @@ export default function FormFields({
         )}
       </div>
 
-
       <div>
         <label className="block text-sm font-medium text-gray-700">
           Status Publikasi
@@ -139,7 +138,7 @@ export default function FormFields({
           value={formData.published ? "true" : "false"}
           onChange={(e) => {
             const value = e.target.value === "true";
-            setFormData((prev: any) => ({ ...prev, published: value }));
+            setFormData((prev) => ({ ...prev, published: value }));
           }}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
         >

@@ -18,7 +18,7 @@ const withUserAuth = (
   tutorialKey?: string,
   tutorialSteps?: TutorialStep[]
 ) => {
-  return () => {
+  const UserAuthComponent = () => {
     const router = useRouter();
     const { user, isLoading, isAuthorized, handleLogout, error } = useAuth();
 
@@ -76,7 +76,7 @@ const withUserAuth = (
       return () => {
         introJs().exit(true);
       };
-    }, [tutorialSteps, tutorialKey]);
+    }, []);
 
     if (
       isLoading ||
@@ -123,6 +123,12 @@ const withUserAuth = (
       </div>
     );
   };
+
+  UserAuthComponent.displayName = `UserAuthComponent(${Object.keys(
+    contentMap
+  ).join(", ")})`;
+
+  return UserAuthComponent;
 };
 
 export default withUserAuth;

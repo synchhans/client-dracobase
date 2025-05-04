@@ -22,7 +22,7 @@ export default function useWorkspaces() {
         languageId
       );
       setWorkspaces((prev) => [...prev, newWorkspace]);
-    } catch (err: any) {
+    } catch (err: unknown) {
       throw err;
     } finally {
       setLoading(false);

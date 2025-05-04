@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getDataAi, sendQueryToBackend } from "@/app/api/ai";
+import { toast } from "react-toastify";
 
 interface AIFeedbackData {
   query: string;
@@ -37,11 +38,13 @@ export const useFeedback = (
         } else {
           console.log("Tidak ada data feedback tersimpan untuk blok ini.");
         }
-      } catch (error) {}
+      } catch (error: unknown) {
+        console.log(error);
+      }
     };
 
     fetchExistingFeedbackData();
-  }, [materialId, contentBlockId]);
+  }, [materialId, contentBlockId, workspaceId]);
 
   const handleFeedback = async ({ code }: { code: string }) => {
     setIsAILoading(true);
@@ -61,9 +64,10 @@ export const useFeedback = (
 
       setAIFeedback(feedbackData);
       setIsFeedbackVisible(true);
-    } catch (error: any) {
-      console.error("Error fetching AI feedback:", error);
-      alert(error.message || "Gagal mendapatkan feedback AI.");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message || "Gagal mendapatkan feedback AI.");
+      }
     } finally {
       setIsAILoading(false);
     }

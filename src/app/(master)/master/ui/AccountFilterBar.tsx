@@ -1,6 +1,19 @@
 import { FaFilter, FaSortAmountDownAlt, FaSortAmountUp } from "react-icons/fa";
 import { useState } from "react";
 
+type AccountFilterBarProps = {
+  sortBy: "latest" | "oldest";
+  setSortBy: React.Dispatch<React.SetStateAction<"latest" | "oldest">>;
+  filterLoginVia: string;
+  setFilterLoginVia: React.Dispatch<React.SetStateAction<string>>;
+  filterProfileComplete: "completed" | "incomplete" | "";
+  setFilterProfileComplete: React.Dispatch<
+    React.SetStateAction<"completed" | "incomplete" | "">
+  >;
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+};
+
 export default function AccountFilterBar({
   sortBy,
   setSortBy,
@@ -8,7 +21,7 @@ export default function AccountFilterBar({
   setFilterLoginVia,
   filterProfileComplete,
   setFilterProfileComplete,
-}: any) {
+}: AccountFilterBarProps) {
   const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
 
   return (

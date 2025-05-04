@@ -21,10 +21,16 @@ export const apiGetRecents = async (): Promise<Recent[]> => {
     } else {
       throw new Error("Respons bukan JSON valid.");
     }
-  } catch (err: any) {
-    throw new Error(
-      err.message || "Terjadi kesalahan saat mengambil data recent."
-    );
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(
+        err.message || "Terjadi kesalahan saat mengambil data recent."
+      );
+    } else {
+      throw new Error(
+        "Terjadi kesalahan tidak terduga saat mengambil data recent."
+      );
+    }
   }
 };
 

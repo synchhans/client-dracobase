@@ -21,10 +21,10 @@ export default function AccountList({
 }) {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<any>(null);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const actionRef = useRef<HTMLDivElement>(null);
 
-  const openEditModal = (user: any) => {
+  const openEditModal = (user: User) => {
     setSelectedUser({ ...user });
     setIsModalOpen(true);
   };
@@ -40,7 +40,7 @@ export default function AccountList({
     setIsModalOpen(false);
   };
 
-  const handleDelete = (user: any) => {
+  const handleDelete = (user: User) => {
     if (
       window.confirm(`Are you sure you want to delete ${user.displayName}?`)
     ) {

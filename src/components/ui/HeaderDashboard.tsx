@@ -5,6 +5,7 @@ import UserProfileButton from "./header/UserProfileButton";
 import RestartTutorialButton from "./header/RestartTutorialButton";
 
 import { BiCheckCircle } from "react-icons/bi";
+import Image from "next/image";
 
 export default function HeaderDashboard({
   tutorialKey,
@@ -29,7 +30,13 @@ export default function HeaderDashboard({
           }
           className="px-0.5 hover:bg-gray-100 rounded-sm"
         >
-          <img src="/logo.svg" alt="Logo" width={30} height={30} />
+          <Image
+            src="/logo.svg"
+            alt="Logo"
+            width={30}
+            height={30}
+            className="w-full h-auto"
+          />
         </a>
 
         <div className="hidden md:flex items-center group">

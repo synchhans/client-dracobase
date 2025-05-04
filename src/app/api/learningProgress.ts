@@ -25,10 +25,16 @@ export const apiGetProgress = async (
     } else {
       throw new Error("Respons bukan JSON valid.");
     }
-  } catch (err: any) {
-    throw new Error(
-      err.message || "Terjadi kesalahan saat mengambil data progress."
-    );
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(
+        err.message || "Terjadi kesalahan saat mengambil data progress."
+      );
+    } else {
+      throw new Error(
+        "Terjadi kesalahan tidak terduga saat mengambil data progress."
+      );
+    }
   }
 };
 
@@ -59,9 +65,15 @@ export const apiUpdateProgress = async (
     } else {
       throw new Error("Respons bukan JSON valid.");
     }
-  } catch (err: any) {
-    throw new Error(
-      err.message || "Terjadi kesalahan saat memperbarui data progress."
-    );
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(
+        err.message || "Terjadi kesalahan saat memperbarui data progress."
+      );
+    } else {
+      throw new Error(
+        "Terjadi kesalahan tidak terduga saat memperbarui data progress."
+      );
+    }
   }
 };

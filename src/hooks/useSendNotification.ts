@@ -32,16 +32,18 @@ export const useSendNotification = () => {
         message: `${userIds.length} notifikasi berhasil dikirim.`,
         data: results,
       };
-    } catch (err: any) {
-      const errorMessage =
-        err.message || "Gagal mengirim notifikasi ke beberapa pengguna.";
-      setError(errorMessage);
-      setLoading(false);
-      return {
-        success: false,
-        message: errorMessage,
-        error: errorMessage,
-      };
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        const errorMessage =
+          err.message || "Gagal mengirim notifikasi ke beberapa pengguna.";
+        setError(errorMessage);
+        setLoading(false);
+        return {
+          success: false,
+          message: errorMessage,
+          error: errorMessage,
+        };
+      }
     }
   };
 

@@ -13,7 +13,7 @@ export interface Language {
 export interface ContentBlock {
   _id?: string;
   type: "text" | "code" | "commands" | "terminal" | "image" | "video";
-  content: string | string[];
+  content: string[];
   order: number;
 }
 
@@ -43,17 +43,17 @@ export interface SubmitButtonProps {
 }
 
 export interface FormFieldsProps {
-  formData: any;
-  formErrors: any;
-  setFormData: (data: any) => void;
-  setFormErrors: (errors: any) => void;
+  formData: FormData;
+  formErrors: FormErrors;
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  setFormErrors: React.Dispatch<React.SetStateAction<FormErrors>>;
 }
 
 export interface MaterialInputProps {
   materials: Material[];
-  setFormData: (data: any) => void;
-  formErrors: any;
-  setFormErrors: (errors: any) => void;
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  formErrors: FormErrors;
+  setFormErrors: React.Dispatch<React.SetStateAction<FormErrors>>;
 }
 
 export interface CULanguageModalProps {

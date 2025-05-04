@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { emmetHTML, emmetJSX } from "emmet-monaco-es";
+import { OnMount } from "@monaco-editor/react";
+import { Editor } from "@monaco-editor/react";
 
 interface EditorProps {
   language: string;
@@ -7,16 +9,20 @@ interface EditorProps {
   onChange: (value: string) => void;
 }
 
-const Editor: React.FC<EditorProps> = ({ language, code, onChange }) => {
-  const [MonacoEditor, setMonacoEditor] = useState<any>(null);
+const MaterialEditor: React.FC<EditorProps> = ({
+  language,
+  code,
+  onChange,
+}) => {
+  const [MonacoEditor, setMonacoEditor] = useState<typeof Editor | null>(null);
 
   useEffect(() => {
     import("@monaco-editor/react").then((module) => {
-      setMonacoEditor(() => module.default);
+      setMonacoEditor(() => module.Editor);
     });
   }, []);
 
-  const handleEditorDidMount = (editor: any, monaco: any) => {
+  const handleEditorDidMount: OnMount = (editor, monaco) => {
     if (editor) {
       switch (language) {
         case "html":
@@ -59,4 +65,4 @@ const Editor: React.FC<EditorProps> = ({ language, code, onChange }) => {
   );
 };
 
-export default Editor;
+export default MaterialEditor;

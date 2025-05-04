@@ -1,11 +1,20 @@
+import Image from "next/image";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
+
+type FeedbackPengamat = {
+  _id: string;
+  userId: string;
+  feedback: string;
+  image?: string;
+  createdAt: Date;
+};
 
 interface FeedbackModalProps {
   displyname: string;
   isOpen: boolean;
   onClose: () => void;
-  feedbacks: any[];
+  feedbacks: FeedbackPengamat[];
 }
 
 const FeedbackModal: React.FC<FeedbackModalProps> = ({
@@ -40,10 +49,13 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({
                 <p className="font-medium text-gray-700">{feedback.feedback}</p>
                 {feedback.image && (
                   <div className="mt-4">
-                    <img
+                    <Image
                       src={feedback.image}
                       alt="Screenshot"
                       className="w-full h-auto rounded-lg shadow-md"
+                      width={500}
+                      height={500}
+                      style={{ width: "100%", height: "auto" }}
                     />
                   </div>
                 )}

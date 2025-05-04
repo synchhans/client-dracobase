@@ -3,6 +3,7 @@ import {
   apiGetMaintenanceStatus,
   apiToggleMaintenance,
 } from "@/app/api/maintenance";
+import { toast } from "react-toastify";
 
 type UseMaintenanceReturn = {
   isMaintenance: boolean;
@@ -21,9 +22,11 @@ export default function useMaintenance(): UseMaintenanceReturn {
       try {
         const data = await apiGetMaintenanceStatus();
         setIsMaintenance(!!data.enabled);
-      } catch (err: any) {
-        console.error("Gagal ambil status", err.message);
-        setIsMaintenance(false);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          toast.error(err.message);
+          setIsMaintenance(false);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -43,8 +46,10 @@ export default function useMaintenance(): UseMaintenanceReturn {
 
       setIsMaintenance(!!updatedData.enabled);
       setMessage("Berhasil memperbarui status.");
-    } catch (err: any) {
-      setMessage(err.message || "Gagal memperbarui status.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setMessage(err.message || "Gagal memperbarui status.");
+      }
     } finally {
       setIsLoading(false);
     }

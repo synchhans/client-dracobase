@@ -4,6 +4,14 @@ import { toast } from "react-toastify";
 
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/pengamat`;
 
+type FeedbackPengamat = {
+  _id: string;
+  userId: string;
+  feedback: string;
+  image?: string;
+  createdAt: Date;
+};
+
 interface UseFeedbackPengamatResult {
   image: string | null;
   feedbackText: string;
@@ -13,8 +21,8 @@ interface UseFeedbackPengamatResult {
   setFeedbackText: (text: string) => void;
   submitFeedback: () => Promise<void>;
   reset: () => void;
-  fetchFeedbackByUserId: (userId: string) => Promise<any>;
-  fetchFeedbackCountByUserId: (userId: string) => Promise<any>;
+  fetchFeedbackByUserId: (userId: string) => Promise<FeedbackPengamat[]>;
+  fetchFeedbackCountByUserId: (userId: string) => Promise<number>;
 }
 
 const useFeedbackPengamat = (): UseFeedbackPengamatResult => {
@@ -23,7 +31,9 @@ const useFeedbackPengamat = (): UseFeedbackPengamatResult => {
   const [isCapturing, setIsCapturing] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const fetchFeedbackByUserId = async (userId: string) => {
+  const fetchFeedbackByUserId = async (
+    userId: string
+  ): Promise<FeedbackPengamat[]> => {
     try {
       const response = await fetch(`${API_URL}/${userId}`, {
         method: "GET",
@@ -46,7 +56,9 @@ const useFeedbackPengamat = (): UseFeedbackPengamatResult => {
     }
   };
 
-  const fetchFeedbackCountByUserId = async (userId: string) => {
+  const fetchFeedbackCountByUserId = async (
+    userId: string
+  ): Promise<number> => {
     try {
       const response = await fetch(`${API_URL}/count/${userId}`, {
         method: "GET",
@@ -58,7 +70,7 @@ const useFeedbackPengamat = (): UseFeedbackPengamatResult => {
 
       if (response.ok) {
         const data = await response.json();
-        return data.data;
+        return typeof data.data === "number" ? data.data : 0;
       } else {
         throw new Error("Gagal menghitung feedback.");
       }

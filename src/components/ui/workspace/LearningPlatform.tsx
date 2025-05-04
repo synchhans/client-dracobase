@@ -4,19 +4,15 @@ import { FaBars, FaLock, FaUnlock } from "react-icons/fa";
 import { Workspace } from "@/types/workspace.types";
 import { useLearningProgress } from "@/hooks/useLearningProgress";
 import TerminalEditor from "./TerminalEditor";
+import { ContentBlock } from "@/types/language.types";
 
 export default function LearningPlatform({
   workspace,
 }: {
   workspace: Workspace;
 }) {
-  if (!workspace) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-red-500">Workspace tidak ditemukan.</p>
-      </div>
-    );
-  }
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
 
   const {
     currentMaterialIndex,
@@ -28,8 +24,13 @@ export default function LearningPlatform({
     markAsCompleted,
   } = useLearningProgress(workspace.userId._id, workspace._id);
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isCopied, setIsCopied] = useState(false);
+  if (!workspace) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-red-500">Workspace tidak ditemukan.</p>
+      </div>
+    );
+  }
 
   const goToNextMaterial = () => {
     if (isCompleted) return;
@@ -106,12 +107,12 @@ export default function LearningPlatform({
       await navigator.clipboard.writeText(content);
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Gagal menyalin teks:", error);
     }
   };
 
-  const renderContentBlock = (block: any) => {
+  const renderContentBlock = (block: ContentBlock) => {
     switch (block.type) {
       case "text":
         return <p className="text-gray-700 mb-4">{block.content.toString()}</p>;

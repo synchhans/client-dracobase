@@ -6,7 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { MainDashoardProps } from "@/types/mainDashoardProps.types";
 
 const withAuth = (contentMap: MainDashoardProps["contentMap"]) => {
-  return () => {
+  const AuthenticatedComponent = () => {
     const { user, isLoading, isAuthorized, handleLogout, error } = useAuth();
 
     if (isLoading || !isAuthorized) {
@@ -31,6 +31,12 @@ const withAuth = (contentMap: MainDashoardProps["contentMap"]) => {
       </div>
     );
   };
+
+  AuthenticatedComponent.displayName = `AuthenticatedComponent(${Object.keys(
+    contentMap
+  ).join(", ")})`;
+
+  return AuthenticatedComponent;
 };
 
 export default withAuth;

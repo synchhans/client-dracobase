@@ -9,12 +9,14 @@ export default function useRecent() {
     try {
       const data = await apiGetRecents();
       setRecents(data);
-    } catch (err: any) {
-      throw new Error(err.message || "Gagal mengambil bahasa.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        throw new Error(err.message || "Gagal mengambil bahasa.");
+      }
     }
   };
 
-  const addRecent = (newRecent: any) => {
+  const addRecent = (newRecent: Recent) => {
     setRecents((prev) => [newRecent, ...prev]);
   };
 
@@ -37,6 +39,6 @@ export default function useRecent() {
   return {
     recents,
     deleteRecent,
-    addRecent
+    addRecent,
   };
 }

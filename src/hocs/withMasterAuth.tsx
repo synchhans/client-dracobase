@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { MainDashoardProps } from "@/types/mainDashoardProps.types";
 
 const withMasterAuth = (contentMap: MainDashoardProps["contentMap"]) => {
-  return () => {
+  const MasterAuthComponent = () => {
     const router = useRouter();
     const { user, isLoading, isAuthorized, handleLogout, error } = useAuth();
 
@@ -40,6 +40,12 @@ const withMasterAuth = (contentMap: MainDashoardProps["contentMap"]) => {
       </div>
     );
   };
+
+  MasterAuthComponent.displayName = `MasterAuthComponent(${Object.keys(
+    contentMap
+  ).join(", ")})`;
+
+  return MasterAuthComponent;
 };
 
 export default withMasterAuth;

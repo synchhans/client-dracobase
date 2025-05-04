@@ -19,8 +19,8 @@ export const parseAIResponse = (rawResponse: string): AIResponse => {
 
   let error: ErrorResponse | undefined = undefined;
   let solution: string | undefined = undefined;
-  let debugLogs: DebugLog[] = [];
   let confidenceScore = 0;
+  const debugLogs: DebugLog[] = [];
 
   lines.forEach((line) => {
     if (line.includes("**Error**:")) {

@@ -1,8 +1,8 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import dracula from "react-syntax-highlighter/dist/cjs/styles/prism/dracula";
+import SyntaxHighlighter from "react-syntax-highlighter";
 
 interface MarkdownRendererProps {
   content: string;
@@ -14,13 +14,11 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
       remarkPlugins={[remarkGfm]}
       components={{
         code({
-          node,
           inline,
           className,
           children,
           ...props
         }: React.HTMLAttributes<HTMLElement> & {
-          node?: any;
           inline?: boolean;
           className?: string;
         }) {
@@ -29,7 +27,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
 
           return !inline && match ? (
             <SyntaxHighlighter
-              style={dracula as any}
+              style={dracula}
               language={language}
               PreTag="div"
               {...props}

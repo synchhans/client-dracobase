@@ -64,7 +64,7 @@ export default function useCULanguage({
     if (mode === "update" && languageToUpdate) {
       validateForm(formData);
     }
-  }, [mode, languageToUpdate]);
+  }, [mode, languageToUpdate, formData]);
 
   const isFormValid = (): boolean => {
     return Object.values(formErrors).every((error) => !error);
@@ -92,11 +92,13 @@ export default function useCULanguage({
         );
       }, 100);
       onClose();
-    } catch (err: any) {
-      const errorMessage =
-        err.message || "Terjadi kesalahan saat menambahkan/memperbarui bahasa.";
-      toast.error(errorMessage);
-      console.error("Submit failed:", errorMessage);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        const errorMessage =
+          err.message ||
+          "Terjadi kesalahan saat menambahkan/memperbarui bahasa.";
+        toast.error(errorMessage);
+      }
     } finally {
       setIsLoading(false);
     }

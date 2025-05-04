@@ -28,7 +28,7 @@ export const apiGetAccounts = async (): Promise<User[] | null> => {
 export const apiEditAccount = async (
   id: string,
   level: string
-): Promise<any> => {
+): Promise<User> => {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
       method: "PUT",
@@ -53,7 +53,7 @@ export const apiEditAccount = async (
   }
 };
 
-export const apiDeleteAccount = async (id: string): Promise<any> => {
+export const apiDeleteAccount = async (id: string): Promise<User> => {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
       method: "DELETE",

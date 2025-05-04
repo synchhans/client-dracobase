@@ -1,5 +1,4 @@
 import useAccount from "@/hooks/useAccount";
-import { User } from "@/types/user.types";
 import AccountFilterBar from "./AccountFilterBar";
 import AccountList from "./AccountList";
 import { useAccountFilters } from "./useAccountFilters";
@@ -8,6 +7,7 @@ import SendNotificationModal from "./SendNotificationModal";
 import { useSendNotification } from "@/hooks/useSendNotification";
 import { toast } from "react-toastify";
 import { NotificationType } from "@/types/notification.type";
+import { User } from "@/types/user.types";
 
 export default function AccountContent({ user }: { user: User }) {
   const {
@@ -36,11 +36,7 @@ export default function AccountContent({ user }: { user: User }) {
     filterProfileComplete,
   });
 
-  const {
-    loading: notificationLoading,
-    error: notificationError,
-    sendNotification,
-  } = useSendNotification();
+  const { sendNotification } = useSendNotification();
 
   const handleSendNotification = async (
     userIds: string[],
@@ -51,24 +47,25 @@ export default function AccountContent({ user }: { user: User }) {
     console.log(userIds);
     const result = await sendNotification(userIds, title, message, type);
 
-    if (result.success) {
+    if (result?.success) {
       toast.success(result.message);
       setIsModalOpen(false);
     } else {
       toast.error("Gagal mengirim notifikasi.");
-      console.error(result.error);
+      console.error(result?.error);
     }
   };
 
   return (
     <div className="p-3">
+      <div>{user.displayName}</div>
       <div className="flex flex-col sm:flex-row justify-between h-full items-start sm:items-center mb-6 gap-4">
         <div className="flex flex-wrap gap-2">
           <AccountFilterBar
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
             sortBy={sortBy}
             setSortBy={setSortBy}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
             filterLoginVia={filterLoginVia}
             setFilterLoginVia={setFilterLoginVia}
             filterProfileComplete={filterProfileComplete}

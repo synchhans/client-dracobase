@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getDataAi, sendQueryToBackend } from "@/app/api/ai";
+import { toast } from "react-toastify";
 
 interface DebugData {
   debugLogs: string;
@@ -35,11 +36,13 @@ export const useDebugging = (
         } else {
           console.log("Tidak ada data debugging tersimpan untuk blok ini.");
         }
-      } catch (error) {}
+      } catch (error: unknown) {
+        console.log(error);
+      }
     };
 
     fetchExistingDebugData();
-  }, [materialId, contentBlockId]);
+  }, [materialId, contentBlockId, workspaceId]);
 
   const handleDebug = async ({ code }: { code: string }) => {
     setIsDebugLoading(true);
@@ -58,9 +61,10 @@ export const useDebugging = (
 
       setDebugData(parsedDebugData);
       setIsDebuggerVisible(true);
-    } catch (error: any) {
-      console.error("Error fetching debug data:", error);
-      alert(error.message || "Gagal mendapatkan hasil debugging.");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message || "Gagal mendapatkan hasil debugging.");
+      }
     } finally {
       setIsDebugLoading(false);
     }

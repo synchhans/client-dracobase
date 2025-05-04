@@ -96,9 +96,15 @@ export const apiGetLanguages = async (): Promise<Language[]> => {
     } else {
       throw new Error("Respons bukan JSON valid.");
     }
-  } catch (err: any) {
-    throw new Error(
-      err.message || "Terjadi kesalahan saat mengambil data bahasa."
-    );
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(
+        err.message || "Terjadi kesalahan saat mengambil data bahasa."
+      );
+    } else {
+      throw new Error(
+        "Terjadi kesalahan tidak terduga saat mengambil data bahasa."
+      );
+    }
   }
 };

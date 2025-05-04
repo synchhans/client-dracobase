@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Header from "./Header";
 import Editor from "./Editor";
 import Output from "./Output";
@@ -78,7 +78,7 @@ const TerminalEditor: React.FC<TerminalEditorProps> = ({
     }
   };
 
-  const runCodeForRealTime = async () => {
+  const runCodeForRealTime = useCallback(async () => {
     try {
       const mappedLanguage = LANGUAGE_MAP[language] || language;
 
@@ -94,7 +94,7 @@ const TerminalEditor: React.FC<TerminalEditorProps> = ({
       console.error("Error rendering output:", error);
       setOutput("Terjadi kesalahan saat merender output.");
     }
-  };
+  }, [code, language]);
 
   const toggleRealTime = () => {
     if (!isRealTime) {
@@ -109,7 +109,7 @@ const TerminalEditor: React.FC<TerminalEditorProps> = ({
     if (isRealTime) {
       runCodeForRealTime();
     }
-  }, [code, isRealTime]);
+  }, [code, isRealTime, runCodeForRealTime]);
 
   return (
     <div className="flex flex-col bg-gray-100 rounded-md shadow-md overflow-hidden">

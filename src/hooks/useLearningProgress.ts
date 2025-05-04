@@ -5,7 +5,7 @@ import { Progress, UpdateProgressParams } from "@/types/learningProgress.type";
 export const useLearningProgress = (userId: string, workspaceId: string) => {
   const [currentMaterialIndex, setCurrentMaterialIndex] = useState<number>(0);
   const [completedMaterials, setCompletedMaterials] = useState<number[]>([]);
-  const [isCompleted, setIsCompleted] = useState<boolean>(false); // State isCompleted
+  const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export const useLearningProgress = (userId: string, workspaceId: string) => {
   };
 
   useEffect(() => {
-    const handleBeforeUnload = async (event: BeforeUnloadEvent) => {
+    const handleBeforeUnload = async () => {
       if (isCompleted) return;
 
       const params: UpdateProgressParams = {

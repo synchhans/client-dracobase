@@ -10,6 +10,7 @@ export default function MaintenanceControl({ user }: { user: User }) {
       className="flex items-center justify-center bg-gray-50 px-4"
       style={{ minHeight: "calc(100vh - 75px)" }}
     >
+      <div>{user.displayName}</div>
       <div className="w-full max-w-lg bg-white shadow-xl rounded-xl p-8 border border-gray-200">
         <h2 className="text-xl font-bold text-gray-800 mb-6">
           Pengaturan Maintenance Mode

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { FaCode, FaEdit, FaEllipsisV, FaTimes, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import CULanguageModal from "./CULanguageModal";
+import { Language } from "@/types/language.types";
 
 export default function LanguageModal({
   id2,
@@ -17,12 +18,16 @@ export default function LanguageModal({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isWorkspaceModalOpen, setIsWorkspaceModalOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState<any | null>(null);
+  const [selectedLanguage, setSelectedLanguage] = useState<Language | null>(
+    null
+  );
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategories, setActiveCategories] = useState<string[]>([]);
   const [isCUDModalOpen, setIsCUDModalOpen] = useState(false);
   const [isCModalOpen, setIsCModalOpen] = useState(false);
-  const [languageToUpdate, setLanguageToUpdate] = useState<any | null>(null);
+  const [languageToUpdate, setLanguageToUpdate] = useState<Language | null>(
+    null
+  );
   const [dropdownIndex, setDropdownIndex] = useState<number | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const { languages, deleteLanguage } = useLanguages();
@@ -31,7 +36,7 @@ export default function LanguageModal({
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
-  const handleEditClick = (language: any) => {
+  const handleEditClick = (language: Language) => {
     setLanguageToUpdate(language);
     setIsCUDModalOpen(true);
   };
@@ -43,8 +48,12 @@ export default function LanguageModal({
         toast.success("Bahasa berhasil dihapus.");
 
         window.location.reload();
-      } catch (err: any) {
-        toast.error(`Gagal menghapus bahasa: ${err.message}`);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          toast.error(`Gagal menghapus bahasa: ${err.message}`);
+        } else {
+          toast.error(`Gagal tak terduga menghapus bahasa!`);
+        }
       }
     }
   };
@@ -73,7 +82,7 @@ export default function LanguageModal({
     );
   };
 
-  const handleLanguageSelect = (language: any) => {
+  const handleLanguageSelect = (language: Language) => {
     setSelectedLanguage(language);
     setIsWorkspaceModalOpen(true);
   };
@@ -100,14 +109,18 @@ export default function LanguageModal({
         userId,
         workspaceName,
         description,
-        selectedLanguage._id
+        selectedLanguage._id!
       );
 
       toast.success("Workspace berhasil dibuat!");
       closeWorkspaceModal();
       window.location.reload();
-    } catch (err: any) {
-      toast.error(`Gagal membuat workspace: ${err.message}`);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        toast.error(`Gagal membuat workspace: ${err.message}`);
+      } else {
+        toast.error(`Gagal tak terduga membuat workspace!`);
+      }
     }
   };
 
@@ -426,7 +439,7 @@ export default function LanguageModal({
         <CULanguageModal
           onClose={() => setIsCUDModalOpen(false)}
           mode="update"
-          languageToUpdate={languageToUpdate}
+          languageToUpdate={languageToUpdate!}
         />
       )}
       {isCModalOpen && (

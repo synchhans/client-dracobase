@@ -13,7 +13,7 @@ export default function NotificationPanel() {
     null
   );
 
-  const handleOpenDetail = (notif: any) => {
+  const handleOpenDetail = (notif: AppNotification) => {
     setSelectedNotif(notif);
   };
 

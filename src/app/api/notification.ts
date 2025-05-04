@@ -27,10 +27,16 @@ export const fetchUserNotifications = async (): Promise<{
     } else {
       throw new Error("Respons bukan JSON valid.");
     }
-  } catch (err: any) {
-    throw new Error(
-      err.message || "Terjadi kesalahan saat mengambil notifikasi."
-    );
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(
+        err.message || "Terjadi kesalahan saat mengambil notifikasi."
+      );
+    } else {
+      throw new Error(
+        "Terjadi kesalahan tidak terduga saat mengambil notifikasi."
+      );
+    }
   }
 };
 
@@ -44,7 +50,7 @@ export const createNotification = async ({
   title: string;
   message: string;
   type: NotificationType;
-}): Promise<any> => {
+}): Promise<AppNotification> => {
   const res = await fetch(NOTIFICATION_API_URL, {
     method: "POST",
     headers: {
@@ -64,7 +70,7 @@ export const createNotification = async ({
 
 export const markNotificationAsRead = async (
   notificationId: string
-): Promise<{ success: boolean; data: any }> => {
+): Promise<{ success: boolean; data: AppNotification }> => {
   try {
     const response = await fetch(
       `${NOTIFICATION_API_URL}/${notificationId}/read`,
@@ -91,9 +97,15 @@ export const markNotificationAsRead = async (
     } else {
       throw new Error("Respons bukan JSON valid.");
     }
-  } catch (err: any) {
-    throw new Error(
-      err.message || "Terjadi kesalahan saat menandai notifikasi."
-    );
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(
+        err.message || "Terjadi kesalahan saat menandai notifikasi."
+      );
+    } else {
+      throw new Error(
+        "Terjadi kesalahan tidak terduga saat menandai notifikasi."
+      );
+    }
   }
 };

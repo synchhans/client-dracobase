@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { User } from "@/types/user.types";
 import { logout, verifyUser } from "@/app/api/auth";
@@ -10,7 +10,7 @@ export const useAuth = (shouldRedirect: boolean = true) => {
   const [error, setError] = useState<string | null>(null);
   const [isAuthorized, setIsAuthorized] = useState(false);
 
-  const checkAuthStatus = async () => {
+  const checkAuthStatus = useCallback(async () => {
     setIsLoading(true);
     try {
       const userData = await verifyUser();
@@ -29,7 +29,7 @@ export const useAuth = (shouldRedirect: boolean = true) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [router, shouldRedirect]);
 
   const handleLogout = async () => {
     setIsLoading(true);
@@ -51,7 +51,7 @@ export const useAuth = (shouldRedirect: boolean = true) => {
 
   useEffect(() => {
     checkAuthStatus();
-  }, []);
+  }, [checkAuthStatus]);
 
   return { user, isLoading, isAuthorized, handleLogout, error };
 };

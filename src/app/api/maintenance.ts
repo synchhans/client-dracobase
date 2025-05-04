@@ -24,9 +24,14 @@ export const apiGetMaintenanceStatus = async (): Promise<MaintenanceStatus> => {
     }
 
     return json.data;
-  } catch (err: any) {
-    console.error("Error fetching maintenance status:", err.message);
-    throw new Error(err.message || "Terjadi kesalahan saat mengambil status.");
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(
+        err.message || "Terjadi kesalahan saat mengambil status."
+      );
+    } else {
+      throw new Error("Terjadi kesalahan tidak terduga saat mengambil status.");
+    }
   }
 };
 
@@ -60,8 +65,12 @@ export const apiToggleMaintenance = async (
       success: true,
       message: json.message,
     };
-  } catch (err: any) {
-    console.error("Error toggling maintenance:", err.message);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error("Error toggling maintenance:", err.message);
+    } else {
+      console.error("Error tak terduga toggling maintenance!");
+    }
     throw err;
   }
 };

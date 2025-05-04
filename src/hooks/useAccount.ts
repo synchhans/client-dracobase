@@ -22,8 +22,10 @@ export default function useAccount() {
         setAccounts([]);
       }
       setError(null);
-    } catch (err: any) {
-      setError(err.message || "Gagal mengambil account.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || "Gagal mengambil account.");
+      }
     } finally {
       setLoading(false);
     }
@@ -31,7 +33,7 @@ export default function useAccount() {
 
   const editAccount = async (id: string, level: string) => {
     try {
-      const updatedAccount = await apiEditAccount(id, level);
+      await apiEditAccount(id, level);
       setAccounts((prevAccounts) => {
         if (!prevAccounts) return null;
         return prevAccounts.map((account) =>
@@ -39,8 +41,10 @@ export default function useAccount() {
         );
       });
       toast.success("Account updated successfully!");
-    } catch (err: any) {
-      toast.error(err.message || "Failed to update account.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        toast.error(err.message || "Failed to update account.");
+      }
     }
   };
 
@@ -52,8 +56,10 @@ export default function useAccount() {
         return prevAccounts.filter((account) => account._id !== id);
       });
       toast.success("Account deleted successfully!");
-    } catch (err: any) {
-      toast.error(err.message || "Failed to delete account.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        toast.error(err.message || "Failed to delete account.");
+      }
     }
   };
 
