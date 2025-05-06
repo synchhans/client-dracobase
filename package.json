@@ -19,21 +19,26 @@
     "html2canvas": "^1.4.1",
     "intro.js": "^7.2.0",
     "monaco-editor": "^0.52.2",
-    "next": "15.2.0",
+    "next": "^15.3.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-markdown": "^10.1.0",
-    "react-syntax-highlighter": "^15.6.1",
+    "react-syntax-highlighter": "^5.8.0",
     "react-toastify": "^11.0.5",
     "remark-gfm": "^4.0.1",
     "swr": "^2.3.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@types/node": "^22.15.3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
     "@types/react": "^19",
-    "@types/react-syntax-highlighter": "^15.5.13",
-    "typescript": "5.8.3"
+    "@types/react-dom": "^19",
+    "@types/react-syntax-highlighter": "^0.0.3",
+    "eslint": "^9",
+    "eslint-config-next": "15.2.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }

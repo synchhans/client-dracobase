@@ -140,12 +140,19 @@ export default function LearningPlatform({
               Perintah Terminal
             </h2>
             <div className="bg-gray-900 text-white p-4 rounded-md overflow-x-auto">
-              {block.content.map((command: string, index: number) => (
-                <div key={index} className="flex items-center mb-2">
+              {Array.isArray(block.content) ? (
+                block.content.map((command: string, index: number) => (
+                  <div key={index} className="flex items-center mb-2">
+                    <span className="text-green-400 mr-2">&gt;</span>
+                    <code className="font-mono">{command}</code>
+                  </div>
+                ))
+              ) : (
+                <div className="flex items-center">
                   <span className="text-green-400 mr-2">&gt;</span>
-                  <code className="font-mono">{command}</code>
+                  <code className="font-mono">{block.content}</code>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         );
