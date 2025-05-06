@@ -20,7 +20,7 @@ export default function SettingContent({ user }: { user: User }) {
     handleSubmit,
     isLoading,
     error,
-  } = useLoginFormSubmit(user, handleUpdateUser);
+  } = useLoginFormSubmit(user, "old", handleUpdateUser);
 
   if (error) {
     return (

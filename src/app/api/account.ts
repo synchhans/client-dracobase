@@ -4,11 +4,15 @@ const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/account`;
 
 export const apiGetAccounts = async (): Promise<User[] | null> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal mengambil data accounts.");
+    }
     const response = await fetch(API_URL, {
       method: "GET",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -31,11 +35,15 @@ export const apiEditAccount = async (
   level: string
 ): Promise<User> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal mengedit data account.");
+    }
     const response = await fetch(`${API_URL}/${id}`, {
       method: "PUT",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ level }),
     });
@@ -56,11 +64,15 @@ export const apiEditAccount = async (
 
 export const apiDeleteAccount = async (id: string): Promise<User> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal menghapus data account.");
+    }
     const response = await fetch(`${API_URL}/${id}`, {
       method: "DELETE",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 

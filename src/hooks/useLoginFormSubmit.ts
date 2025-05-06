@@ -3,7 +3,8 @@ import { User } from "../types/user.types";
 
 export default function useLoginFormSubmit(
   initialUser: User,
-  handleUpdateUser: (userData: User) => Promise<void>
+  type: string,
+  handleUpdateUser: (userData: User, type: string) => Promise<void>
 ) {
   const [firstName, setFirstName] = useState(initialUser.firstName || "");
   const [lastName, setLastName] = useState(initialUser.lastName || "");
@@ -19,14 +20,16 @@ export default function useLoginFormSubmit(
     }
 
     try {
-      await handleUpdateUser({
-        ...initialUser,
-        firstName,
-        lastName,
-        role,
-        plan,
-      });
-      
+      await handleUpdateUser(
+        {
+          ...initialUser,
+          firstName,
+          lastName,
+          role,
+          plan,
+        },
+        type
+      );
     } catch (error) {
       setError((error as Error).message || "Error updating user");
       console.error("Error updating user:", error);

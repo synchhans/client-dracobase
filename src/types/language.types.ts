@@ -13,7 +13,7 @@ export interface Language {
 export interface ContentBlock {
   _id?: string;
   type: "text" | "code" | "commands" | "terminal" | "image" | "video";
-  content: string[];
+  content: string | string[];
   order: number;
 }
 

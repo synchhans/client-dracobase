@@ -1,4 +1,5 @@
 export const openPopup = (url: string) => {
+  console.log("popup");
   const popupWidth = 600;
   const popupHeight = 700;
 

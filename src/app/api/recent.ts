@@ -4,11 +4,16 @@ const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/recent`;
 
 export const apiGetRecents = async (): Promise<Recent[]> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal mengambil data recent.");
+    }
+
     const response = await fetch(API_URL, {
       method: "GET",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -39,11 +44,15 @@ export const apiGetRecents = async (): Promise<Recent[]> => {
 
 export const apiDeleteRecent = async (recentId: string): Promise<void> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal menghapus data recent.");
+    }
     const response = await fetch(`${API_URL}/${recentId}`, {
       method: "DELETE",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 

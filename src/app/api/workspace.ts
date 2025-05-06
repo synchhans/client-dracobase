@@ -9,12 +9,16 @@ export const apiCreateWorkspace = async (
   languageId: string
 ): Promise<Workspace> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal membuat data workspace.");
+    }
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      credentials: "include",
       body: JSON.stringify({
         userId,
         name,
@@ -37,11 +41,15 @@ export const apiCreateWorkspace = async (
 
 export const apiGetWorkspace = async (id: string): Promise<Workspace> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal mengambil data workspace.");
+    }
     const response = await fetch(`${API_URL}/${id}`, {
       method: "GET",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 

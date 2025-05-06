@@ -4,12 +4,16 @@ const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/language`;
 
 export const apiAddLanguage = async (data: Language): Promise<Language> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal menambah data language.");
+    }
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      credentials: "include",
       body: JSON.stringify(data),
     });
 
@@ -32,12 +36,16 @@ export const apiUpdateLanguage = async (
   data: Language
 ): Promise<Language> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal mengupdate data language.");
+    }
     const response = await fetch(`${API_URL}/${name}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      credentials: "include",
       body: JSON.stringify(data),
     });
 
@@ -57,12 +65,16 @@ export const apiUpdateLanguage = async (
 
 export const apiDeleteLanguage = async (languageId: string): Promise<void> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal menghapus data language.");
+    }
     const response = await fetch(`${API_URL}/${languageId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      credentials: "include",
     });
 
     if (!response.ok) {
@@ -79,11 +91,15 @@ export const apiDeleteLanguage = async (languageId: string): Promise<void> => {
 
 export const apiGetLanguages = async (): Promise<Language[]> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal mengambil data language.");
+    }
     const response = await fetch(API_URL, {
       method: "GET",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 

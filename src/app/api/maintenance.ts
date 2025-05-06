@@ -4,12 +4,16 @@ const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/maintenance`;
 
 export const apiGetMaintenanceStatus = async (): Promise<MaintenanceStatus> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal mengambil data maintenance.");
+    }
     const timestamp = new Date().getTime();
     const response = await fetch(`${API_URL}?t=${timestamp}`, {
       method: "GET",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -42,12 +46,16 @@ export const apiToggleMaintenance = async (
   enabled: boolean
 ): Promise<{ success: boolean; message: string }> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal memperbarui status maintenance.");
+    }
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      credentials: "include",
       body: JSON.stringify({ enabled }),
     });
 

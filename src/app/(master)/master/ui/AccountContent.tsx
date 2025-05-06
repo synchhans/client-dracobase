@@ -58,7 +58,7 @@ export default function AccountContent({ user }: { user: User }) {
 
   return (
     <div className="p-3">
-      <div>{user.displayName}</div>
+      <div className="hidden">{user.displayName}</div>
       <div className="flex flex-col sm:flex-row justify-between h-full items-start sm:items-center mb-6 gap-4">
         <div className="flex flex-wrap gap-2">
           <AccountFilterBar

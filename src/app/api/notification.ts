@@ -7,11 +7,15 @@ export const fetchUserNotifications = async (): Promise<{
   data: AppNotification[];
 }> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal mengambil data notification.");
+    }
     const response = await fetch(NOTIFICATION_API_URL, {
       method: "GET",
-      credentials: "include" as RequestCredentials,
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -51,12 +55,16 @@ export const createNotification = async ({
   message: string;
   type: NotificationType;
 }): Promise<AppNotification> => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw new Error("Gagal membuat data notification.");
+  }
   const res = await fetch(NOTIFICATION_API_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-    credentials: "include",
     body: JSON.stringify({ userIds, title, message, type }),
   });
 
@@ -72,13 +80,17 @@ export const markNotificationAsRead = async (
   notificationId: string
 ): Promise<{ success: boolean; data: AppNotification }> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal menandai notifikasi sebagai dibaca.");
+    }
     const response = await fetch(
       `${NOTIFICATION_API_URL}/${notificationId}/read`,
       {
         method: "PATCH",
-        credentials: "include" as RequestCredentials,
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );

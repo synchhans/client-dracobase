@@ -18,7 +18,7 @@ export default function LoginForm({ user, handleUpdateUser }: LoginFormProps) {
     handleSubmit,
     isLoading,
     error,
-  } = useLoginFormSubmit(user, handleUpdateUser);
+  } = useLoginFormSubmit(user, "new", handleUpdateUser);
 
   if (error) {
     return (

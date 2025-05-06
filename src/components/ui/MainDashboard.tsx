@@ -85,7 +85,7 @@ export default function MainDashboard({
         </button>
       )}
 
-      {!isMobile && (
+      {(!isMobile || isSidebarOpen) && (
         <div
           ref={sidebarRef}
           className={`w-64 h-[calc(100vh-56px)] bg-white shadow-lg border-r border-gray-200 transition-transform duration-300 md:translate-x-0 md:relative fixed z-40`}
@@ -102,13 +102,7 @@ export default function MainDashboard({
         </div>
       )}
 
-      <div
-        className={`flex-1 p-4 ${
-          isSidebarOpen ? "blur-sm pointer-events-none" : ""
-        }`}
-      >
-        {getContent()}
-      </div>
+      <div className="flex-1 p-4">{getContent()}</div>
     </div>
   );
 }

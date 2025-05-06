@@ -35,11 +35,15 @@ const useFeedbackPengamat = (): UseFeedbackPengamatResult => {
     userId: string
   ): Promise<FeedbackPengamat[]> => {
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("Gagal mengambil data feedback.");
+      }
       const response = await fetch(`${API_URL}/${userId}`, {
         method: "GET",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -60,11 +64,15 @@ const useFeedbackPengamat = (): UseFeedbackPengamatResult => {
     userId: string
   ): Promise<number> => {
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("Gagal mengambil data count feedback.");
+      }
       const response = await fetch(`${API_URL}/count/${userId}`, {
         method: "GET",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -75,8 +83,7 @@ const useFeedbackPengamat = (): UseFeedbackPengamatResult => {
         throw new Error("Gagal menghitung feedback.");
       }
     } catch (error) {
-      console.error("Error fetching feedback count:", error);
-      alert("Terjadi kesalahan saat menghitung feedback.");
+      console.log("Error fetching feedback count:", error);
       return 0;
     }
   };
@@ -128,11 +135,15 @@ const useFeedbackPengamat = (): UseFeedbackPengamatResult => {
     }
 
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("Gagal mengirim data feedback.");
+      }
       const response = await fetch(API_URL, {
         method: "POST",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           feedback: feedbackText,

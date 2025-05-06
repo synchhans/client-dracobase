@@ -68,7 +68,7 @@ export default function MaterialInput({
   ) => {
     const newBlock: ContentBlock = {
       type,
-      content: Array.isArray(content) ? content : [],
+      content: Array.isArray(content) ? content : content.toString(),
       order: newMaterial.contentBlocks.length + 1,
     };
     setNewMaterial((prev) => ({

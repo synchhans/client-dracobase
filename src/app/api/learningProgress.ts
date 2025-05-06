@@ -8,11 +8,15 @@ export const apiGetProgress = async (
   completedMaterialIndexes: number[];
 }> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal mengambil data progress.");
+    }
     const response = await fetch(`${API_URL}/${userId}/${workspaceId}`, {
       method: "GET",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -47,12 +51,16 @@ export const apiUpdateProgress = async (
   updates: { activeMaterialIndex: number; completedMaterialIndexes: number[] }
 ): Promise<void> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal mengupdate data progress.");
+    }
     const response = await fetch(`${API_URL}/${userId}/${workspaceId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      credentials: "include",
       body: JSON.stringify(updates),
     });
 

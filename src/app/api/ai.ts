@@ -37,11 +37,15 @@ export const sendQueryToBackend = async ({
   type: string;
 }): Promise<SendAiResponse> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal mengirim data ke ai.");
+    }
     const response = await fetch(API_URL, {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         query,
@@ -89,13 +93,17 @@ export const getDataAi = async ({
   type: string;
 }): Promise<GetAiResponse> => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("Gagal mengambil data ai.");
+    }
     const response = await fetch(
       `${API_URL}?workspaceId=${workspaceId}&materialId=${materialId}&contentBlockId=${contentBlockId}&type=${type}`,
       {
         method: "GET",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );

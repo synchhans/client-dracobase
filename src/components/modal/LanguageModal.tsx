@@ -22,7 +22,7 @@ export default function LanguageModal({
     null
   );
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeCategories, setActiveCategories] = useState<string[]>([]);
+  const [activeCategories, setActiveCategories] = useState<string[]>(["popular"]);
   const [isCUDModalOpen, setIsCUDModalOpen] = useState(false);
   const [isCModalOpen, setIsCModalOpen] = useState(false);
   const [languageToUpdate, setLanguageToUpdate] = useState<Language | null>(
@@ -114,7 +114,7 @@ export default function LanguageModal({
 
       toast.success("Workspace berhasil dibuat!");
       closeWorkspaceModal();
-      window.location.reload();
+      window.location.href = "/dashboard";
     } catch (err: unknown) {
       if (err instanceof Error) {
         toast.error(`Gagal membuat workspace: ${err.message}`);
