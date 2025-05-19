@@ -6,6 +6,7 @@ import RestartTutorialButton from "./header/RestartTutorialButton";
 
 import { BiCheckCircle } from "react-icons/bi";
 import Image from "next/image";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 export default function HeaderDashboard({
   tutorialKey,
@@ -17,6 +18,10 @@ export default function HeaderDashboard({
   user,
   handleLogout,
 }: HeaderDashboardProps) {
+  if (!user) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <div className="flex justify-between py-3 px-5 h-14 items-center">
       <div className="inline-flex gap-x-2 items-center">
