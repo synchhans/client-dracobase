@@ -13,10 +13,12 @@ const withMasterAuth = (contentMap: MainDashoardProps["contentMap"]) => {
     const { user, isLoading, isAuthorized, handleLogout, error } = useAuth();
 
     useEffect(() => {
-      if (user && user.level !== "admin") {
-        router.push("/dashboard");
+      if (!isLoading && user) {
+        if (user && user.level !== "admin") {
+          router.push("/dashboard");
+        }
       }
-    }, [user, router]);
+    }, [isLoading, user, router]);
 
     if (isLoading || !isAuthorized || user?.level !== "admin") {
       return <LoadingSpinner />;

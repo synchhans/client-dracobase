@@ -24,10 +24,12 @@ const withPengamatAuth = (
     const { user, isLoading, isAuthorized, handleLogout, error } = useAuth();
 
     useEffect(() => {
-      if (user && user.level !== "pengamat") {
-        router.push("/dashboard");
+      if (!isLoading && user) {
+        if (user && user.level !== "pengamat") {
+          router.push("/dashboard");
+        }
       }
-    }, [user, router]);
+    }, [isLoading, user, router]);
 
     useEffect(() => {
       if (!tutorialSteps || !tutorialKey) return;

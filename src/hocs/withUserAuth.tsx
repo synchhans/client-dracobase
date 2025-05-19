@@ -23,13 +23,14 @@ const withUserAuth = (
     const { user, isLoading, isAuthorized, handleLogout, error } = useAuth();
 
     useEffect(() => {
-      if (user?.level === "admin") {
-        router.push("/master");
+      if (!isLoading && user) {
+        if (user.level === "admin") {
+          router.push("/master");
+        } else if (user.level === "pengamat") {
+          router.push("/pengamat");
+        }
       }
-      if (user?.level === "pengamat") {
-        router.push("/pengamat");
-      }
-    }, [user, router]);
+    }, [isLoading, user, router]);
 
     useEffect(() => {
       if (!tutorialSteps || !tutorialKey) return;
