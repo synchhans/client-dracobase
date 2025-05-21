@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -35,23 +35,31 @@ const Footer = () => {
 
           <div className="flex space-x-4">
             <a
-              href="https://facebook.com"
+              href="https://github.com/synchhans"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-500 transition"
             >
-              <FaFacebook className="w-8 h-8" />
+              <FaGithub className="w-8 h-8" />
             </a>
             <a
-              href="https://twitter.com"
+              href="https://www.linkedin.com/in/muhamadfarhaninc"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-500 transition"
             >
-              <FaTwitter className="w-8 h-8" />
+              <FaLinkedin className="w-8 h-8" />
             </a>
             <a
-              href="https://instagram.com"
+              href="https://www.youtube.com/@codeworshipper"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-blue-500 transition"
+            >
+              <FaYoutube className="w-8 h-8" />
+            </a>
+            <a
+              href="https://instagram.com/sphansay"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-500 transition"
