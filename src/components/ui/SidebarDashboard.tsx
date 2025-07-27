@@ -30,6 +30,8 @@ export default function SidebarDashboard({
           ? "/master"
           : user.level === "pengamat"
           ? "/pengamat"
+          : user.level === "dosen"
+          ? "/dosen"
           : "/dashboard",
       id: id6,
     },

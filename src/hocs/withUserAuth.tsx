@@ -26,6 +26,8 @@ const withUserAuth = (
       if (!isLoading && user) {
         if (user.level === "admin") {
           router.push("/master");
+        } else if (user.level === "dosen") {
+          router.push("/dosen");
         } else if (user.level === "pengamat") {
           router.push("/pengamat");
         }
@@ -83,7 +85,8 @@ const withUserAuth = (
       isLoading ||
       !isAuthorized ||
       user?.level === "admin" ||
-      user?.level === "pengamat"
+      user?.level === "pengamat" ||
+      user?.level === "dosen"
     ) {
       return <LoadingSpinner />;
     }

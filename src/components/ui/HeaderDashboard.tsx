@@ -31,6 +31,8 @@ export default function HeaderDashboard({
               ? "/master"
               : user.level === "pengamat"
               ? "/pengamat"
+              : user.level === "dosen"
+              ? "/dosen"
               : "/dashboard"
           }
           className="px-0.5 hover:bg-gray-100 rounded-sm"
@@ -54,6 +56,10 @@ export default function HeaderDashboard({
 
           {user.level === "admin" && (
             <BiCheckCircle className="text-red-500" size={16} title="Master" />
+          )}
+
+          {user.level === "dosen" && (
+            <BiCheckCircle className="text-teal-500" size={16} title="Dosen" />
           )}
 
           {user.level === "pengamat" && (

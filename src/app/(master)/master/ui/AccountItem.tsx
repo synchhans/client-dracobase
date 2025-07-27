@@ -89,6 +89,8 @@ export default function AccountItem({
                   ? "bg-green-500"
                   : user.level === "pengamat"
                   ? "bg-yellow-500"
+                  : user.level === "dosen"
+                  ? "bg-teal-500"
                   : "bg-blue-800"
               }`}
             >
