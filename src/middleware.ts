@@ -41,7 +41,7 @@ export default async function middleware(req: NextRequest) {
       maintenanceEnabled = data.data?.enabled || false;
     }
   } catch (error) {
-    console.error("Gagal memeriksa status maintenance!");
+    console.error("Gagal memeriksa status maintenance: ", error);
   }
 
   if (maintenanceEnabled && !isAllowedPath) {
