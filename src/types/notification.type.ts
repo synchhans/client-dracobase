@@ -1,4 +1,4 @@
-export type NotificationType = "system" | "master";
+export type NotificationType = "system" | "master" | "dosen";
 
 export interface AppNotification {
   _id: string;
