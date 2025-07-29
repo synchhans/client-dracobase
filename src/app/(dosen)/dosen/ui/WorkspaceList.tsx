@@ -1,6 +1,7 @@
 "use client";
 
 import LoadingSpinner from "@/components/common/LoadingSpinner";
+import DefaultAvatar from "@/components/icons/DefaultAvatar";
 import { MahasiswaWorkspace } from "@/types/dosen.types";
 import Image from "next/image";
 import React from "react";
@@ -100,7 +101,10 @@ export default function WorkspaceList({
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {workspaces.map((ws) => (
-            <tr key={ws.workspaceId} className="hover:bg-gray-50">
+            <tr
+              key={`${ws.workspaceId}-${ws.mahasiswa._id}`}
+              className="hover:bg-gray-50"
+            >
               <td className="px-4 py-4 text-center">
                 <input
                   type="checkbox"
@@ -111,13 +115,20 @@ export default function WorkspaceList({
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="flex items-center gap-3">
-                  <Image
-                    src={ws.mahasiswa.picture}
-                    width={50}
-                    height={50}
-                    alt={ws.mahasiswa.displayName}
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
+                  <div className="relative w-10 h-10 rounded-full overflow-hidden bg-gray-100 flex-shrink-0">
+                    {ws.mahasiswa.picture ? (
+                      <Image
+                        key={ws.mahasiswa.picture}
+                        src={ws.mahasiswa.picture}
+                        alt={ws.mahasiswa.displayName || "Avatar"}
+                        fill
+                        className="object-cover"
+                        sizes="40px"
+                      />
+                    ) : (
+                      <DefaultAvatar className="w-full h-full text-gray-400 p-1.5" />
+                    )}
+                  </div>
                   <div>
                     <div className="text-sm font-medium text-gray-900">
                       {ws.mahasiswa.displayName}

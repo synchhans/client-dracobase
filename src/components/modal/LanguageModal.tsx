@@ -22,7 +22,9 @@ export default function LanguageModal({
     null
   );
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeCategories, setActiveCategories] = useState<string[]>(["popular"]);
+  const [activeCategories, setActiveCategories] = useState<string[]>([
+    "popular",
+  ]);
   const [isCUDModalOpen, setIsCUDModalOpen] = useState(false);
   const [isCModalOpen, setIsCModalOpen] = useState(false);
   const [languageToUpdate, setLanguageToUpdate] = useState<Language | null>(
@@ -156,7 +158,7 @@ export default function LanguageModal({
               </button>
             </div>
 
-            {role === "admin" || role === "pengamat" ? (
+            {role === "admin" || role === "pengamat" || role === "dosen" ? (
               <button
                 className={`mb-5 px-4 py-2 text-sm rounded-md transition-colors ${
                   role === "admin"
@@ -166,10 +168,12 @@ export default function LanguageModal({
                 onClick={
                   role === "admin" ? () => setIsCModalOpen(true) : undefined
                 }
-                disabled={role === "pengamat"}
+                disabled={role === "pengamat" || role === "dosen"}
                 title={
                   role === "pengamat"
                     ? "Dibatasi oleh master. Hanya master yang bisa mengakses."
+                    : role === "dosen"
+                    ? "Dosen tidak dapat menambah bahasa. Hubungi Master."
                     : ""
                 }
               >
@@ -243,7 +247,7 @@ export default function LanguageModal({
                         </p>
                       </div>
                     </div>
-                    {(role as "admin" | "pengamat") === "admin" && (
+                    {(role as "admin" | "pengamat" | "dosen") === "admin" && (
                       <div className="relative">
                         <button
                           className="text-gray-500 hover:text-gray-700 focus:outline-none"
@@ -292,7 +296,8 @@ export default function LanguageModal({
                       </div>
                     )}
 
-                    {(role as "admin" | "pengamat") === "pengamat" && (
+                    {(role as "admin" | "pengamat" | "dosen") ===
+                      "pengamat" && (
                       <div className="relative">
                         <button
                           className="text-gray-500 hover:text-gray-700 focus:outline-none"
@@ -317,6 +322,52 @@ export default function LanguageModal({
                                 >
                                   <FaEdit className="w-4 h-4" />
                                   Edit
+                                </button>
+                              </li>
+                              <li>
+                                <button
+                                  className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-400 hover:bg-gray-100 cursor-not-allowed opacity-60"
+                                  disabled
+                                  title="Dibatasi oleh master"
+                                >
+                                  <FaTrash className="w-4 h-4" />
+                                  Hapus
+                                </button>
+                              </li>
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {(role as "admin" | "pengamat" | "dosen") === "dosen" && (
+                      <div className="relative">
+                        <button
+                          className="text-gray-500 hover:text-gray-700 focus:outline-none"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setDropdownIndex(
+                              dropdownIndex === index ? null : index
+                            );
+                          }}
+                        >
+                          <FaEllipsisV className="w-5 h-5 cursor-pointer" />
+                        </button>
+
+                        {dropdownIndex === index && (
+                          <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                            <ul className="py-1">
+                              <li>
+                                <button
+                                  className="flex items-center gap-2 w-full px-4 py-2 text-sm text-blue-500 hover:bg-gray-100 cursor-pointer"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setDropdownIndex(null);
+                                    handleEditClick(language);
+                                  }}
+                                >
+                                  <FaEdit className="w-4 h-4" />
+                                  Kelola Materi
                                 </button>
                               </li>
                               <li>
