@@ -1,0 +1,11 @@
+User-agent: *
+
+Disallow: /login
+Disallow: /master
+Disallow: /dosen
+Disallow: /pengamat
+Disallow: /workspace
+Disallow: /api
+Disallow: /maintenance
+
+Sitemap: https://www.dracobase.my.id/sitemap.xml
