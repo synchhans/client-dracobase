@@ -25,11 +25,11 @@ export const metadata: Metadata = {
     title: "Dracobase: Platform Belajar Pemrograman dengan Feedback AI",
     description:
       "Belajar pemrograman lebih efektif dengan feedback instan dari AI.",
-    url: "https://www.dracobase.my.id",
+    url: "https://dracobase.my.id",
     siteName: "Dracobase",
     images: [
       {
-        url: "https://www.dracobase.my.id/og-image.png",
+        url: "https://dracobase.my.id/og-image.png",
         width: 1200,
         height: 630,
         alt: "Dracobase Platform Pemrograman AI",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Dracobase: Platform Belajar Pemrograman dengan Feedback AI",
     description:
       "Belajar pemrograman lebih efektif dengan feedback instan dari AI.",
-    images: ["https://www.dracobase.my.id/og-image.png"],
+    images: ["https://dracobase.my.id/og-image.png"],
   },
 
   icons: {
@@ -55,9 +55,35 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
 
+  applicationName: "Dracobase",
+
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Dracobase",
+  },
+
   manifest: "/site.webmanifest",
 
-  metadataBase: new URL("https://www.dracobase.my.id"),
+  metadataBase: new URL("https://dracobase.my.id"),
+
+  alternates: {
+    canonical: "https://dracobase.my.id",
+    languages: {
+      "id-ID": "https://dracobase.my.id",
+    },
+  },
+
+  themeColor: "#ffffff",
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
 
   creator: "Muhamad Farhan",
   authors: [{ name: "Muhamad Farhan", url: "https://github.com/synchhans" }],
