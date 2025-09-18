@@ -217,6 +217,21 @@ const TerminalEditor: React.FC<TerminalEditorProps> = ({
                 <span className="hidden sm:block text-sm">Feedback AI</span>
               </button>
             )}
+
+            <button
+              onClick={() =>
+                window.open(`/ai-chat?workspaceId=${workspaceId}`, "_blank")
+              }
+              className={`px-4 py-2 rounded-md text-white transition-all ${
+                isRealTime
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-indigo-500 hover:bg-indigo-600"
+              }`}
+              disabled={isRealTime}
+              title="Chat dengan AI (khusus HTML, CSS, JavaScript)"
+            >
+              Chat AI
+            </button>
           </div>
 
           {!isRealTime && isDebuggerVisible && debugData && (

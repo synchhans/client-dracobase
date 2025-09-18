@@ -43,15 +43,13 @@ export default function SendNotificationModal({
 
       if (initialTypeOnOpen === "system") {
         setSelectedUserIds(users.map((u) => u._id));
-      }
-      else if (initialTypeOnOpen === "dosen") {
+      } else if (initialTypeOnOpen === "dosen") {
         setSelectedUserIds(preSelectedUserIds);
-      }
-      else {
+      } else {
         setSelectedUserIds([]);
       }
     }
-  }, [isOpen]);
+  }, [isOpen, defaultType, preSelectedUserIds, users]);
   useEffect(() => {
     if (!isOpen) return;
 
@@ -62,7 +60,7 @@ export default function SendNotificationModal({
         setSelectedUserIds([]);
       }
     }
-  }, [type]); 
+  }, [type, isOpen, users, setSelectedUserIds, selectedUserIds.length]);
   if (!isOpen) return null;
 
   const handleSelectUser = (userId: string) => {
